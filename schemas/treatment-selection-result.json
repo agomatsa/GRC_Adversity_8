@@ -1,0 +1,10 @@
+{
+  "selected_treatment_ids": [
+    "T-R-004",
+    "T-R-006",
+    "T-R-011"
+  ],
+  "total_cost": 21000.0,
+  "mean_reduction": 1547601.26,
+  "validation": "valid"
+}

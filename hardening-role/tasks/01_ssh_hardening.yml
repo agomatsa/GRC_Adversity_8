@@ -1,0 +1,44 @@
+---
+# Control 01 — SSH hardening: disable root login, restrict ciphers/MACs.
+# Precheck: confirm sshd_config exists and is a regular file before touching it.
+- name: "01 precheck: sshd_config exists"
+  ansible.builtin.stat:
+    path: /etc/ssh/sshd_config
+  register: sshd_config_stat
+
+- name: "01 precheck: fail loudly if sshd_config is missing (do not silently skip)"
+  ansible.builtin.fail:
+    msg: "/etc/ssh/sshd_config not found — cannot apply SSH hardening. This host may not be a supported target."
+  when: not sshd_config_stat.stat.exists
+
+- name: "01 backup: copy sshd_config before modification"
+  ansible.builtin.copy:
+    src: /etc/ssh/sshd_config
+    dest: "{{ hardening_backup_root }}/{{ hardening_backup_timestamp }}/sshd_config.bak"
+    remote_src: true
+    mode: "0600"
+  when: sshd_config_stat.stat.exists
+
+- name: "01 apply: PermitRootLogin"
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?\s*PermitRootLogin\s+'
+    line: "PermitRootLogin {{ hardening_ssh_permit_root_login }}"
+    validate: /usr/sbin/sshd -T -f %s
+  notify: restart sshd
+
+- name: "01 apply: Ciphers"
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?\s*Ciphers\s+'
+    line: "Ciphers {{ hardening_ssh_ciphers }}"
+    validate: /usr/sbin/sshd -T -f %s
+  notify: restart sshd
+
+- name: "01 apply: MACs"
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?\s*MACs\s+'
+    line: "MACs {{ hardening_ssh_macs }}"
+    validate: /usr/sbin/sshd -T -f %s
+  notify: restart sshd

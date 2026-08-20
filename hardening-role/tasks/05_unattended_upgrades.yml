@@ -1,0 +1,54 @@
+---
+# Control 05 — Automatic security updates (unattended-upgrades on Debian,
+# dnf-automatic on Rocky). Precheck distinguishes Debian vs RedHat family
+# so the task never applies the wrong mechanism.
+- name: "05 (Debian) precheck: unattended-upgrades package present"
+  ansible.builtin.package_facts:
+    manager: auto
+  when: ansible_os_family == "Debian"
+
+- name: "05 (Debian) fail loudly if package missing"
+  ansible.builtin.fail:
+    msg: "unattended-upgrades not installed. This role does not install new packages (see README)."
+  when:
+    - ansible_os_family == "Debian"
+    - "'unattended-upgrades' not in ansible_facts.packages"
+
+- name: "05 (Debian) backup existing config"
+  ansible.builtin.copy:
+    src: /etc/apt/apt.conf.d/50unattended-upgrades
+    dest: "{{ hardening_backup_root }}/{{ hardening_backup_timestamp }}/50unattended-upgrades.bak"
+    remote_src: true
+    mode: "0600"
+  when: ansible_os_family == "Debian"
+  failed_when: false
+
+- name: "05 (Debian) apply: enable security-origin auto upgrades"
+  ansible.builtin.copy:
+    dest: /etc/apt/apt.conf.d/20auto-upgrades-hardening-role.conf
+    mode: "0644"
+    content: |
+      APT::Periodic::Update-Package-Lists "1";
+      APT::Periodic::Unattended-Upgrade "1";
+  when: ansible_os_family == "Debian"
+  notify: restart unattended-upgrades
+
+- name: "05 (RedHat) precheck: dnf-automatic present"
+  ansible.builtin.package_facts:
+    manager: auto
+  when: ansible_os_family == "RedHat"
+
+- name: "05 (RedHat) fail loudly if package missing"
+  ansible.builtin.fail:
+    msg: "dnf-automatic not installed. This role does not install new packages (see README)."
+  when:
+    - ansible_os_family == "RedHat"
+    - "'dnf-automatic' not in ansible_facts.packages"
+
+- name: "05 (RedHat) apply: enable and start the automatic-updates timer"
+  ansible.builtin.service:
+    name: dnf-automatic.timer
+    enabled: true
+    state: started
+  when: ansible_os_family == "RedHat"
+  notify: restart unattended-upgrades

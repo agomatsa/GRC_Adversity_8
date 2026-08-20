@@ -1,0 +1,41 @@
+---
+# Control 04 — auditd installed, enabled, baseline ruleset present.
+# Precheck distinguishes "not installed" from "installed but disabled" so
+# the task never silently no-ops on a host missing the package.
+- name: "04 precheck: is auditd package present"
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: "04 precheck: fail with an explicit message if auditd is not installed"
+  ansible.builtin.fail:
+    msg: >
+      auditd package is not installed on this host. This role deliberately
+      does not install new packages (see README known limitations) — install
+      auditd manually or extend this task before re-running.
+  when: "'auditd' not in ansible_facts.packages"
+
+- name: "04 backup: existing audit rules"
+  ansible.builtin.copy:
+    src: /etc/audit/rules.d/audit.rules
+    dest: "{{ hardening_backup_root }}/{{ hardening_backup_timestamp }}/audit.rules.bak"
+    remote_src: true
+    mode: "0600"
+  failed_when: false  # file may not exist yet on a fresh install; that's fine
+
+- name: "04 apply: baseline audit rules (idempotent — single managed file)"
+  ansible.builtin.copy:
+    dest: /etc/audit/rules.d/hardening-role-baseline.rules
+    mode: "0640"
+    content: |
+      # Managed by hardening-role — baseline rules, CIS-aligned subset.
+      -w /etc/passwd -p wa -k identity
+      -w /etc/shadow -p wa -k identity
+      -w /etc/sudoers -p wa -k privilege_escalation
+      -w /var/log/auth.log -p wa -k auth_log
+  notify: restart auditd
+
+- name: "04 apply: ensure auditd service enabled and running"
+  ansible.builtin.service:
+    name: auditd
+    enabled: true
+    state: started

@@ -1,0 +1,55 @@
+---
+# hardening-role/tasks/main.yml
+# Orchestrates all 8 remediations. Each is independently toggleable via
+# defaults/main.yml so a control can be turned off if it's found to
+# conflict with a documented service requirement, without editing task
+# logic. Every task below is idempotent: a second run against an already
+# hardened host must report changed=0 for that task (proven in
+# idempotence.log).
+
+- name: Ensure backup root directory exists
+  ansible.builtin.file:
+    path: "{{ hardening_backup_root }}/{{ hardening_backup_timestamp }}"
+    state: directory
+    mode: "0700"
+  tags: always
+
+- name: 1 - SSH hardening (root login, ciphers, MACs)
+  ansible.builtin.include_tasks: 01_ssh_hardening.yml
+  when: hardening_enable_ssh_hardening
+  tags: [ssh, control-01]
+
+- name: 2 - Blacklist unused filesystem kernel modules
+  ansible.builtin.include_tasks: 02_filesystem_modules.yml
+  when: hardening_enable_filesystem_module_blacklist
+  tags: [filesystem, control-02]
+
+- name: 3 - Password hashing and complexity policy
+  ansible.builtin.include_tasks: 03_password_policy.yml
+  when: hardening_enable_password_policy
+  tags: [password, control-03]
+
+- name: 4 - auditd installed, enabled, baseline ruleset
+  ansible.builtin.include_tasks: 04_auditd.yml
+  when: hardening_enable_auditd
+  tags: [audit, control-04]
+
+- name: 5 - Unattended/automatic security updates
+  ansible.builtin.include_tasks: 05_unattended_upgrades.yml
+  when: hardening_enable_unattended_upgrades
+  tags: [updates, control-05]
+
+- name: 6 - Sensitive file permissions
+  ansible.builtin.include_tasks: 06_file_permissions.yml
+  when: hardening_enable_file_permissions
+  tags: [permissions, control-06]
+
+- name: 7 - Disable unnecessary services
+  ansible.builtin.include_tasks: 07_disable_services.yml
+  when: hardening_enable_disable_unused_services
+  tags: [services, control-07]
+
+- name: 8 - Kernel sysctl hardening
+  ansible.builtin.include_tasks: 08_sysctl_hardening.yml
+  when: hardening_enable_sysctl_hardening
+  tags: [sysctl, control-08]

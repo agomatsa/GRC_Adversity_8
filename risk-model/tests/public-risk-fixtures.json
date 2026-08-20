@@ -1,0 +1,31 @@
+{
+  "fixtures": [
+    {"case_id":"P-RISK-01","budget":10000,"required_treatment_count":3,"seed_marker":"marker-752d05",
+     "treatments":[{"id":"T-A","cost":3000,"mean_reduction":7000,"dependencies":[]},{"id":"T-B","cost":3500,"mean_reduction":7200,"dependencies":[]},{"id":"T-C","cost":4000,"mean_reduction":8000,"dependencies":[]},{"id":"T-D","cost":5000,"mean_reduction":8100,"dependencies":[]},{"id":"T-E","cost":2500,"mean_reduction":4000,"dependencies":[]}],
+     "expected":{"selected_treatment_ids":["T-B","T-C","T-E"],"total_cost":10000,"mean_reduction":19200,"validation":"valid"}},
+    {"case_id":"P-RISK-02","budget":11000,"required_treatment_count":3,"seed_marker":"marker-132235",
+     "treatments":[{"id":"T-A","cost":3000,"mean_reduction":7000,"dependencies":[]},{"id":"T-B","cost":3500,"mean_reduction":7200,"dependencies":[]},{"id":"T-C","cost":4000,"mean_reduction":8000,"dependencies":[]},{"id":"T-D","cost":5000,"mean_reduction":8100,"dependencies":[]},{"id":"T-E","cost":2500,"mean_reduction":4000,"dependencies":[]}],
+     "expected":{"selected_treatment_ids":["T-A","T-B","T-C"],"total_cost":10500,"mean_reduction":22200,"validation":"valid"}},
+    {"case_id":"P-RISK-03","budget":12000,"required_treatment_count":3,"seed_marker":"marker-53e424",
+     "treatments":[{"id":"T-A","cost":3000,"mean_reduction":7000,"dependencies":[]},{"id":"T-B","cost":3500,"mean_reduction":7200,"dependencies":[]},{"id":"T-C","cost":4000,"mean_reduction":8000,"dependencies":[]},{"id":"T-D","cost":5000,"mean_reduction":8100,"dependencies":[]},{"id":"T-E","cost":2500,"mean_reduction":4000,"dependencies":[]}],
+     "expected":{"selected_treatment_ids":["T-A","T-C","T-D"],"total_cost":12000,"mean_reduction":23100,"validation":"valid"}},
+    {"case_id":"P-RISK-04","budget":13000,"required_treatment_count":3,"seed_marker":"marker-5e66ad",
+     "treatments":[{"id":"T-A","cost":3000,"mean_reduction":7000,"dependencies":[]},{"id":"T-B","cost":3500,"mean_reduction":7200,"dependencies":[]},{"id":"T-C","cost":4000,"mean_reduction":8000,"dependencies":[]},{"id":"T-D","cost":5000,"mean_reduction":8100,"dependencies":[]},{"id":"T-E","cost":2500,"mean_reduction":4000,"dependencies":[]}],
+     "expected":{"selected_treatment_ids":["T-B","T-C","T-D"],"total_cost":12500,"mean_reduction":23300,"validation":"valid"}},
+    {"case_id":"P-RISK-05","budget":14000,"required_treatment_count":3,"seed_marker":"marker-35e119",
+     "treatments":[{"id":"T-A","cost":3000,"mean_reduction":7000,"dependencies":[]},{"id":"T-B","cost":3500,"mean_reduction":7200,"dependencies":[]},{"id":"T-C","cost":4000,"mean_reduction":8000,"dependencies":[]},{"id":"T-D","cost":5000,"mean_reduction":8100,"dependencies":[]},{"id":"T-E","cost":2500,"mean_reduction":4000,"dependencies":[]}],
+     "expected":{"selected_treatment_ids":["T-B","T-C","T-D"],"total_cost":12500,"mean_reduction":23300,"validation":"valid"}},
+    {"case_id":"P-RISK-06","budget":15000,"required_treatment_count":3,"seed_marker":"marker-70114b",
+     "treatments":[{"id":"T-A","cost":3000,"mean_reduction":7000,"dependencies":[]},{"id":"T-B","cost":3500,"mean_reduction":7200,"dependencies":[]},{"id":"T-C","cost":4000,"mean_reduction":8000,"dependencies":[]},{"id":"T-D","cost":5000,"mean_reduction":8100,"dependencies":[]},{"id":"T-E","cost":2500,"mean_reduction":4000,"dependencies":[]}],
+     "expected":{"selected_treatment_ids":["T-B","T-C","T-D"],"total_cost":12500,"mean_reduction":23300,"validation":"valid"}},
+    {"case_id":"P-RISK-07","budget":16000,"required_treatment_count":3,"seed_marker":"marker-572f41",
+     "treatments":[{"id":"T-A","cost":3000,"mean_reduction":7000,"dependencies":[]},{"id":"T-B","cost":3500,"mean_reduction":7200,"dependencies":[]},{"id":"T-C","cost":4000,"mean_reduction":8000,"dependencies":[]},{"id":"T-D","cost":5000,"mean_reduction":8100,"dependencies":[]},{"id":"T-E","cost":2500,"mean_reduction":4000,"dependencies":[]}],
+     "expected":{"selected_treatment_ids":["T-B","T-C","T-D"],"total_cost":12500,"mean_reduction":23300,"validation":"valid"}},
+    {"case_id":"P-RISK-08","budget":17000,"required_treatment_count":3,"seed_marker":"marker-da0c10",
+     "treatments":[{"id":"T-A","cost":3000,"mean_reduction":7000,"dependencies":[]},{"id":"T-B","cost":3500,"mean_reduction":7200,"dependencies":[]},{"id":"T-C","cost":4000,"mean_reduction":8000,"dependencies":[]},{"id":"T-D","cost":5000,"mean_reduction":8100,"dependencies":[]},{"id":"T-E","cost":2500,"mean_reduction":4000,"dependencies":[]}],
+     "expected":{"selected_treatment_ids":["T-B","T-C","T-D"],"total_cost":12500,"mean_reduction":23300,"validation":"valid"}}
+  ],
+  "interface_version": "2026-07",
+  "project": "GRC-A4",
+  "schema_version": "1.0"
+}

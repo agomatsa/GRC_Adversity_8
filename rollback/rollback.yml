@@ -1,0 +1,112 @@
+---
+# rollback/rollback.yml
+# Restores every file this role modified, from the most recent timestamped
+# backup directory under hardening_backup_root, and re-enables anything
+# the role stopped. Run with: ansible-playbook rollback/rollback.yml
+# -e backup_timestamp=<value from idempotence.log or the apply run's output>
+
+- name: Rollback hardening-role changes
+  hosts: all
+  become: true
+  vars:
+    hardening_backup_root: /var/backups/hardening-role
+  tasks:
+    - name: Fail if backup_timestamp was not supplied
+      ansible.builtin.fail:
+        msg: "Pass -e backup_timestamp=<timestamp> — see the apply run's recorded backup directory name."
+      when: backup_timestamp is not defined
+
+    - name: Confirm the backup directory exists
+      ansible.builtin.stat:
+        path: "{{ hardening_backup_root }}/{{ backup_timestamp }}"
+      register: backup_dir_stat
+
+    - name: Fail loudly if the backup directory is missing (never guess a rollback target)
+      ansible.builtin.fail:
+        msg: "No backup found at {{ hardening_backup_root }}/{{ backup_timestamp }} — refusing to rollback blind."
+      when: not backup_dir_stat.stat.exists
+
+    - name: Restore sshd_config if a backup exists
+      ansible.builtin.copy:
+        src: "{{ hardening_backup_root }}/{{ backup_timestamp }}/sshd_config.bak"
+        dest: /etc/ssh/sshd_config
+        remote_src: true
+        owner: root
+        group: root
+        mode: "0600"
+      register: sshd_restore
+      failed_when: false
+      notify: restart sshd
+
+    - name: Restore login.defs if a backup exists
+      ansible.builtin.copy:
+        src: "{{ hardening_backup_root }}/{{ backup_timestamp }}/login.defs.bak"
+        dest: /etc/login.defs
+        remote_src: true
+        mode: "0644"
+      failed_when: false
+
+    - name: Restore pwquality.conf if a backup exists
+      ansible.builtin.copy:
+        src: "{{ hardening_backup_root }}/{{ backup_timestamp }}/pwquality.conf.bak"
+        dest: /etc/security/pwquality.conf
+        remote_src: true
+        mode: "0644"
+      failed_when: false
+
+    - name: Remove the managed filesystem-module blacklist file
+      ansible.builtin.file:
+        path: /etc/modprobe.d/hardening-role-blacklist.conf
+        state: absent
+
+    - name: Restore audit rules if a backup exists
+      ansible.builtin.copy:
+        src: "{{ hardening_backup_root }}/{{ backup_timestamp }}/audit.rules.bak"
+        dest: /etc/audit/rules.d/audit.rules
+        remote_src: true
+        mode: "0640"
+      failed_when: false
+      notify: restart auditd
+
+    - name: Remove the managed audit baseline rules file
+      ansible.builtin.file:
+        path: /etc/audit/rules.d/hardening-role-baseline.rules
+        state: absent
+      notify: restart auditd
+
+    - name: Remove the managed auto-upgrades config (Debian)
+      ansible.builtin.file:
+        path: /etc/apt/apt.conf.d/20auto-upgrades-hardening-role.conf
+        state: absent
+      when: ansible_os_family == "Debian"
+
+    - name: Remove the managed sysctl file
+      ansible.builtin.file:
+        path: /etc/sysctl.d/90-hardening-role.conf
+        state: absent
+      notify: reload sysctl
+
+    - name: Re-read file-permissions-before.txt so a human can manually confirm restoration
+      ansible.builtin.debug:
+        msg: >
+          File permission changes (control 06) and service disable actions
+          (control 07) are NOT automatically reversed here, since blindly
+          restoring exact prior permissions/service-enabled-state from a
+          text log risks reintroducing an insecure prior state without
+          human review. See
+          {{ hardening_backup_root }}/{{ backup_timestamp }}/file-permissions-before.txt
+          and services-before.txt for the exact prior values to restore
+          manually if rollback is genuinely required for those two controls.
+
+  handlers:
+    - name: restart sshd
+      ansible.builtin.service:
+        name: "{{ 'sshd' if ansible_os_family == 'RedHat' else 'ssh' }}"
+        state: restarted
+    - name: restart auditd
+      ansible.builtin.service:
+        name: auditd
+        state: restarted
+    - name: reload sysctl
+      ansible.builtin.command: sysctl --system
+      changed_when: false

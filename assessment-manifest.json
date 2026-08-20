@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "project_id": "GRC-A4",
+  "variant": "[insert]",
+  "candidate_binding": "UBI-2026-0038",
+  "assigned_pack": {
+    "file_name": "[insert]",
+    "sha256": "[insert]",
+    "manifest_signature": "[insert]",
+    "verified_before_use": false
+  },
+  "commit": "[insert-40-character-git-commit]",
+  "supported_environment": {
+    "os": "[insert]",
+    "cpu": "[insert]",
+    "memory_gb": 0,
+    "tool_versions": {"python3": "[insert]", "numpy": "[insert - contract requires 2.1.x]", "ansible": "[insert]"}
+  },
+  "commands": {
+    "provision": "pip install -r molecule-or-testinfra/requirements.txt --break-system-packages",
+    "build": "python3 -m py_compile risk-model/*.py",
+    "test": "python3 risk-model/tests/test_treatment_selection.py && python3 risk-model/tests/test_simulate_and_validate.py",
+    "clean": "find . -name '__pycache__' -type d -exec rm -rf {} +"
+  },
+  "results": {
+    "public_tests": {"passed": 33, "failed": 0, "report": "risk-model/tests/"},
+    "runtime_seconds": 0,
+    "peak_memory_mb": 0,
+    "output_hashes": {}
+  },
+  "inputs": ["schemas/vulnerability-findings.csv", "risk-model/tests/public-risk-fixtures.json"],
+  "outputs": ["risk-register.csv", "schemas/simulation-results.json", "schemas/treatment-selection-result.json"],
+  "manual_preconditions": [
+    "No real assigned VM was available during drafting - hardening-role/, rollback/, and molecule-or-testinfra/ are unexecuted code pending a real host run",
+    "OpenSCAP profile ID was not present in the uploaded brief and must be supplied before any real scan",
+    "NumPy 2.1.x could not be installed in the drafting sandbox (network restriction); drafted against 2.4.4"
+  ],
+  "known_limitations": [
+    "before/, after/, service-results.xml, and idempotence.log are templates, not real scan/test output",
+    "The 8 hardening controls were chosen by the assistant since the brief did not name specific required controls",
+    "12 hidden risk-calculation fixtures and the hidden asset/budget fixture were not available during drafting"
+  ]
+}

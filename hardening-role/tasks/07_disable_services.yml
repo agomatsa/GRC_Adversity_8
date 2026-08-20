@@ -1,0 +1,30 @@
+---
+# Control 07 — Disable unnecessary services, per hardening_services_to_disable.
+# Precheck: only acts on services that are actually present on this host —
+# a service absent entirely is reported as "not present", not silently
+# treated as "already compliant" (those are different facts).
+- name: "07 precheck: check unit file state for each target service"
+  ansible.builtin.command: "systemctl list-unit-files {{ item }}.service"
+  register: unit_check
+  changed_when: false
+  failed_when: false
+  loop: "{{ hardening_services_to_disable }}"
+
+- name: "07 backup: record precheck output"
+  ansible.builtin.copy:
+    content: |
+      {% for r in unit_check.results %}
+      {{ r.item }}: {{ r.stdout | default('not present') }}
+      {% endfor %}
+    dest: "{{ hardening_backup_root }}/{{ hardening_backup_timestamp }}/services-before.txt"
+    mode: "0600"
+
+- name: "07 apply: stop and disable each service that is actually present"
+  ansible.builtin.service:
+    name: "{{ item.item }}"
+    state: stopped
+    enabled: false
+  loop: "{{ unit_check.results }}"
+  when: item.item in item.stdout
+  loop_control:
+    label: "{{ item.item }}"

@@ -1,0 +1,173 @@
+{
+  "schema_version": "1.0",
+  "treatments": [
+    {
+      "id": "T-R-001",
+      "risk_id": "R-001",
+      "remediation": "retire asset",
+      "cost": 2000.0,
+      "cost_basis": "decommission",
+      "dependencies": [],
+      "post_treatment_control_band": [
+        0.9,
+        0.98
+      ],
+      "post_treatment_residual_mean": 40.78,
+      "mean_reduction": 383.47
+    },
+    {
+      "id": "T-R-002",
+      "risk_id": "R-002",
+      "remediation": "enforce server-side object authorization",
+      "cost": 15000.0,
+      "cost_basis": "engineering change",
+      "dependencies": [],
+      "post_treatment_control_band": [
+        0.7,
+        0.9
+      ],
+      "post_treatment_residual_mean": 25905.28,
+      "mean_reduction": 42229.82
+    },
+    {
+      "id": "T-R-003",
+      "risk_id": "R-003",
+      "remediation": "upgrade firmware",
+      "cost": 9000.0,
+      "cost_basis": "patch/upgrade",
+      "dependencies": [],
+      "post_treatment_control_band": [
+        0.7,
+        0.9
+      ],
+      "post_treatment_residual_mean": 10710.67,
+      "mean_reduction": 4018.8
+    },
+    {
+      "id": "T-R-004",
+      "risk_id": "R-004",
+      "remediation": "require signing and test legacy clients",
+      "cost": 6000.0,
+      "cost_basis": "config/access change",
+      "dependencies": [],
+      "post_treatment_control_band": [
+        0.7,
+        0.9
+      ],
+      "post_treatment_residual_mean": 200806.54,
+      "mean_reduction": 327314.63
+    },
+    {
+      "id": "T-R-005",
+      "risk_id": "R-005",
+      "remediation": "deploy unique managed local passwords",
+      "cost": 15000.0,
+      "cost_basis": "engineering change",
+      "dependencies": [],
+      "post_treatment_control_band": [
+        0.7,
+        0.9
+      ],
+      "post_treatment_residual_mean": 1731.35,
+      "mean_reduction": 654.51
+    },
+    {
+      "id": "T-R-006",
+      "risk_id": "R-006",
+      "remediation": "restrict to management VLAN and MFA",
+      "cost": 6000.0,
+      "cost_basis": "config/access change",
+      "dependencies": [],
+      "post_treatment_control_band": [
+        0.7,
+        0.9
+      ],
+      "post_treatment_residual_mean": 416917.05,
+      "mean_reduction": 1142977.47
+    },
+    {
+      "id": "T-R-007",
+      "risk_id": "R-007",
+      "remediation": "destroy retained instance after evidence hold",
+      "cost": 2000.0,
+      "cost_basis": "decommission",
+      "dependencies": [],
+      "post_treatment_control_band": [
+        0.9,
+        0.98
+      ],
+      "post_treatment_residual_mean": 40.58,
+      "mean_reduction": 145.3
+    },
+    {
+      "id": "T-R-008",
+      "risk_id": "R-008",
+      "remediation": "reduce privileged session lifetime",
+      "cost": 15000.0,
+      "cost_basis": "engineering change",
+      "dependencies": [],
+      "post_treatment_control_band": [
+        0.7,
+        0.9
+      ],
+      "post_treatment_residual_mean": 21257.94,
+      "mean_reduction": 8064.46
+    },
+    {
+      "id": "T-R-009",
+      "risk_id": "R-009",
+      "remediation": "revoke and establish owner/expiry control",
+      "cost": 6000.0,
+      "cost_basis": "config/access change",
+      "dependencies": [],
+      "post_treatment_control_band": [
+        0.7,
+        0.9
+      ],
+      "post_treatment_residual_mean": 17031.35,
+      "mean_reduction": 6439.36
+    },
+    {
+      "id": "T-R-010",
+      "risk_id": "R-010",
+      "remediation": "restrict recursion ACL",
+      "cost": 6000.0,
+      "cost_basis": "config/access change",
+      "dependencies": [],
+      "post_treatment_control_band": [
+        0.7,
+        0.9
+      ],
+      "post_treatment_residual_mean": 3646.9,
+      "mean_reduction": 5925.39
+    },
+    {
+      "id": "T-R-011",
+      "risk_id": "R-011",
+      "remediation": "renew and automate expiry alert",
+      "cost": 9000.0,
+      "cost_basis": "patch/upgrade",
+      "dependencies": [],
+      "post_treatment_control_band": [
+        0.7,
+        0.9
+      ],
+      "post_treatment_residual_mean": 48005.37,
+      "mean_reduction": 77309.16
+    },
+    {
+      "id": "T-R-012",
+      "risk_id": "R-012",
+      "remediation": "rotate and restrict management",
+      "cost": 6000.0,
+      "cost_basis": "config/access change",
+      "dependencies": [],
+      "post_treatment_control_band": [
+        0.7,
+        0.9
+      ],
+      "post_treatment_residual_mean": 78.85,
+      "mean_reduction": 128.24
+    }
+  ]
+}

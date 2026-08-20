@@ -1,0 +1,16 @@
+galaxy_info:
+  role_name: hardening_role
+  author: UBI-2026-0038
+  description: >
+    Idempotent CIS/SSG-aligned hardening role for Debian 12 / Rocky Linux 9,
+    with per-control backup, rollback, and precheck support. Built for
+    GRC Advanced 4 (Hardening as Code and Quantified Risk).
+  license: Internal use only — assessment artifact, not for production reuse without review.
+  min_ansible_version: "2.15"
+  platforms:
+    - name: Debian
+      versions: ["12"]
+    - name: Rocky
+      versions: ["9"]
+
+dependencies: []

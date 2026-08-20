@@ -1,0 +1,25 @@
+IDEMPOTENCE LOG — TEMPLATE, PENDING REAL HOST RUN
+===================================================
+
+This file must contain the real output of running the hardening-role
+playbook TWICE in succession against the assigned VM, with the second
+run's summary showing changed=0 across every task — that is the actual
+proof of idempotence the brief requires, not an assertion.
+
+Expected command sequence:
+
+    $ ansible-playbook -i inventory hardening-role-playbook.yml | tee idempotence-run1.log
+    ... (first run — expect changed=N for the tasks that apply real changes)
+
+    $ ansible-playbook -i inventory hardening-role-playbook.yml | tee idempotence-run2.log
+    ... (second run — every task must report ok, none may report changed)
+
+    PLAY RECAP (expected shape of the second run) *********************************
+    <hostname>                 : ok=<N>   changed=0   unreachable=0   failed=0   skipped=<N>   rescued=0   ignored=0
+
+If ANY task reports changed on the second run, that task is not idempotent
+and must be fixed before this log is real evidence — do not edit the
+recap numbers to make this look clean; fix the task.
+
+Concatenate both real run logs into this file, replacing this template
+notice, once you have access to the assigned VM.

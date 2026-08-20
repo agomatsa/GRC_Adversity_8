@@ -1,0 +1,36 @@
+---
+# Control 06 — Sensitive file permissions (CIS-aligned).
+- name: "06 precheck: stat each target file so we never 'fix' a file that doesn't exist"
+  ansible.builtin.stat:
+    path: "{{ item }}"
+  register: perm_targets_stat
+  loop:
+    - /etc/passwd
+    - /etc/shadow
+    - /etc/group
+    - /etc/gshadow
+    - /etc/ssh/sshd_config
+
+- name: "06 backup: record current mode/owner for each target before changing"
+  ansible.builtin.copy:
+    content: |
+      {% for r in perm_targets_stat.results %}
+      {{ r.item }}: mode={{ r.stat.mode | default('MISSING') }} owner={{ r.stat.pw_name | default('MISSING') }} group={{ r.stat.gr_name | default('MISSING') }}
+      {% endfor %}
+    dest: "{{ hardening_backup_root }}/{{ hardening_backup_timestamp }}/file-permissions-before.txt"
+    mode: "0600"
+
+- name: "06 apply: /etc/passwd 0644 root:root"
+  ansible.builtin.file: { path: /etc/passwd, mode: "0644", owner: root, group: root }
+
+- name: "06 apply: /etc/shadow 0640 root:shadow"
+  ansible.builtin.file: { path: /etc/shadow, mode: "0640", owner: root, group: shadow }
+
+- name: "06 apply: /etc/group 0644 root:root"
+  ansible.builtin.file: { path: /etc/group, mode: "0644", owner: root, group: root }
+
+- name: "06 apply: /etc/gshadow 0640 root:shadow"
+  ansible.builtin.file: { path: /etc/gshadow, mode: "0640", owner: root, group: shadow }
+
+- name: "06 apply: /etc/ssh/sshd_config 0600 root:root"
+  ansible.builtin.file: { path: /etc/ssh/sshd_config, mode: "0600", owner: root, group: root }

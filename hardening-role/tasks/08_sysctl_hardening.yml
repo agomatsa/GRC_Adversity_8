@@ -1,0 +1,30 @@
+---
+# Control 08 — Kernel sysctl hardening, per hardening_sysctl_settings.
+- name: "08 precheck: capture current sysctl values before changing"
+  ansible.builtin.command: "sysctl {{ item.key }}"
+  register: sysctl_before
+  changed_when: false
+  failed_when: false
+  loop: "{{ hardening_sysctl_settings | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: "08 backup: write pre-change sysctl values"
+  ansible.builtin.copy:
+    content: |
+      {% for r in sysctl_before.results %}
+      {{ r.item.key }} = {{ r.stdout | default('unavailable on this kernel') }}
+      {% endfor %}
+    dest: "{{ hardening_backup_root }}/{{ hardening_backup_timestamp }}/sysctl-before.txt"
+    mode: "0600"
+
+- name: "08 apply: managed sysctl settings (idempotent — sysctl module diffs vs current value)"
+  ansible.posix.sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    sysctl_file: /etc/sysctl.d/90-hardening-role.conf
+    reload: false
+  loop: "{{ hardening_sysctl_settings | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  notify: reload sysctl

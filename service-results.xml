@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TEMPLATE, PENDING REAL HOST RUN. See service-results-NOTICE.md in this same directory for the full explanation and the exact regeneration command. -->
+<testsuites>
+  <testsuite name="molecule-or-testinfra.test_hardening" tests="12" failures="0" errors="0" skipped="2" time="0.0">
+    <testcase classname="test_hardening" name="test_ssh_root_login_disabled" time="0.0"/>
+    <testcase classname="test_hardening" name="test_ssh_ciphers_restricted" time="0.0"/>
+    <testcase classname="test_hardening" name="test_legacy_agent_connectivity" time="0.0">
+      <skipped message="Requires the real assigned host's legacy-agent identity, see rollback/CONFLICTS.md"/>
+    </testcase>
+    <testcase classname="test_hardening" name="test_filesystem_modules_blacklisted" time="0.0"/>
+    <testcase classname="test_hardening" name="test_password_hashing_sha512" time="0.0"/>
+    <testcase classname="test_hardening" name="test_auditd_running_and_enabled" time="0.0"/>
+    <testcase classname="test_hardening" name="test_auditd_baseline_rules_present" time="0.0"/>
+    <testcase classname="test_hardening" name="test_unattended_upgrades_enabled" time="0.0"/>
+    <testcase classname="test_hardening" name="test_sensitive_file_permissions" time="0.0"/>
+    <testcase classname="test_hardening" name="test_unnecessary_services_disabled" time="0.0"/>
+    <testcase classname="test_hardening" name="test_sysctl_hardening_applied" time="0.0"/>
+    <testcase classname="test_hardening" name="test_essential_service_still_reachable_after_hardening" time="0.0">
+      <skipped message="Fill in with the assigned host's actual primary service and port before running for real"/>
+    </testcase>
+  </testsuite>
+</testsuites>

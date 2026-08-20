@@ -1,0 +1,245 @@
+{
+  "schema_version": "1.0",
+  "rows": [
+    {
+      "risk_id": "R-001",
+      "source_finding_ids": [
+        "VF-001"
+      ],
+      "asset_id": "A-01",
+      "asset_name": "edge-lab-07",
+      "asset_criticality": "low",
+      "threat": "Unsupported web component",
+      "control_weakness": "isolated test subnet",
+      "freq_min": 0.475,
+      "freq_mode": 0.95,
+      "freq_max": 1.71,
+      "loss_min": 200.0,
+      "loss_mode": 500.0,
+      "loss_max": 1250.0,
+      "control_min": 0.25,
+      "control_max": 0.5,
+      "dependency_multiplier": 1.0
+    },
+    {
+      "risk_id": "R-002",
+      "source_finding_ids": [
+        "VF-002"
+      ],
+      "asset_id": "A-02",
+      "asset_name": "payroll-api-01",
+      "asset_criticality": "crown-jewel",
+      "threat": "Broken object authorization",
+      "control_weakness": "WAF and authentication",
+      "freq_min": 0.15,
+      "freq_mode": 0.3,
+      "freq_max": 0.54,
+      "loss_min": 120800.0,
+      "loss_mode": 302000.0,
+      "loss_max": 755000.0,
+      "control_min": 0.35,
+      "control_max": 0.6,
+      "dependency_multiplier": 1.0
+    },
+    {
+      "risk_id": "R-003",
+      "source_finding_ids": [
+        "VF-003"
+      ],
+      "asset_id": "A-03",
+      "asset_name": "vpn-gw-01",
+      "asset_criticality": "high",
+      "threat": "Outdated VPN appliance",
+      "control_weakness": "MFA and geo alerting",
+      "freq_min": 0.2,
+      "freq_mode": 0.4,
+      "freq_max": 0.72,
+      "loss_min": 37400.0,
+      "loss_mode": 93500.0,
+      "loss_max": 233750.0,
+      "control_min": 0.6,
+      "control_max": 0.85,
+      "dependency_multiplier": 1.0
+    },
+    {
+      "risk_id": "R-004",
+      "source_finding_ids": [
+        "VF-004"
+      ],
+      "asset_id": "A-04",
+      "asset_name": "files-01",
+      "asset_criticality": "crown-jewel",
+      "threat": "SMB signing not required",
+      "control_weakness": "segmented server VLAN",
+      "freq_min": 0.075,
+      "freq_mode": 0.15,
+      "freq_max": 0.27,
+      "loss_min": 1876000.0,
+      "loss_mode": 4690000.0,
+      "loss_max": 11725000.0,
+      "control_min": 0.35,
+      "control_max": 0.6,
+      "dependency_multiplier": 1.0
+    },
+    {
+      "risk_id": "R-005",
+      "source_finding_ids": [
+        "VF-005"
+      ],
+      "asset_id": "A-05",
+      "asset_name": "helpdesk-02",
+      "asset_criticality": "medium",
+      "threat": "Local administrator password reused",
+      "control_weakness": "EDR installed",
+      "freq_min": 0.275,
+      "freq_mode": 0.55,
+      "freq_max": 0.99,
+      "loss_min": 4400.0,
+      "loss_mode": 11000.0,
+      "loss_max": 27500.0,
+      "control_min": 0.6,
+      "control_max": 0.85,
+      "dependency_multiplier": 1.0
+    },
+    {
+      "risk_id": "R-006",
+      "source_finding_ids": [
+        "VF-006"
+      ],
+      "asset_id": "A-06",
+      "asset_name": "backup-01",
+      "asset_criticality": "crown-jewel",
+      "threat": "Management interface accessible from user VLAN",
+      "control_weakness": "password authentication",
+      "freq_min": 0.15,
+      "freq_mode": 0.3,
+      "freq_max": 0.54,
+      "loss_min": 1944000.0,
+      "loss_mode": 4860000.0,
+      "loss_max": 12150000.0,
+      "control_min": 0.15,
+      "control_max": 0.35,
+      "dependency_multiplier": 1.0
+    },
+    {
+      "risk_id": "R-007",
+      "source_finding_ids": [
+        "VF-007"
+      ],
+      "asset_id": "A-07",
+      "asset_name": "marketing-old",
+      "asset_criticality": "low",
+      "threat": "Remote code execution",
+      "control_weakness": "no DNS and egress blocked",
+      "freq_min": 0.475,
+      "freq_mode": 0.95,
+      "freq_max": 1.71,
+      "loss_min": 200.0,
+      "loss_mode": 500.0,
+      "loss_max": 1250.0,
+      "control_min": 0.6,
+      "control_max": 0.85,
+      "dependency_multiplier": 1.0
+    },
+    {
+      "risk_id": "R-008",
+      "source_finding_ids": [
+        "VF-008"
+      ],
+      "asset_id": "A-08",
+      "asset_name": "idp-01",
+      "asset_criticality": "crown-jewel",
+      "threat": "Admin session timeout exceeds policy",
+      "control_weakness": "phishing-resistant MFA",
+      "freq_min": 0.075,
+      "freq_mode": 0.15,
+      "freq_max": 0.27,
+      "loss_min": 198800.0,
+      "loss_mode": 497000.0,
+      "loss_max": 1242500.0,
+      "control_min": 0.6,
+      "control_max": 0.85,
+      "dependency_multiplier": 1.0
+    },
+    {
+      "risk_id": "R-009",
+      "source_finding_ids": [
+        "VF-009"
+      ],
+      "asset_id": "A-09",
+      "asset_name": "dev-git-01",
+      "asset_criticality": "high",
+      "threat": "Inactive deploy key remains valid",
+      "control_weakness": "branch protection",
+      "freq_min": 0.275,
+      "freq_mode": 0.55,
+      "freq_max": 0.99,
+      "loss_min": 43400.0,
+      "loss_mode": 108500.0,
+      "loss_max": 271250.0,
+      "control_min": 0.6,
+      "control_max": 0.85,
+      "dependency_multiplier": 1.0
+    },
+    {
+      "risk_id": "R-010",
+      "source_finding_ids": [
+        "VF-010"
+      ],
+      "asset_id": "A-10",
+      "asset_name": "dns-01",
+      "asset_criticality": "high",
+      "threat": "Recursion available to guest VLAN",
+      "control_weakness": "rate limiting",
+      "freq_min": 0.15,
+      "freq_mode": 0.3,
+      "freq_max": 0.54,
+      "loss_min": 17000.0,
+      "loss_mode": 42500.0,
+      "loss_max": 106250.0,
+      "control_min": 0.35,
+      "control_max": 0.6,
+      "dependency_multiplier": 1.0
+    },
+    {
+      "risk_id": "R-011",
+      "source_finding_ids": [
+        "VF-011"
+      ],
+      "asset_id": "A-11",
+      "asset_name": "db-reporting",
+      "asset_criticality": "medium",
+      "threat": "TLS certificate expires in 12 days",
+      "control_weakness": "private network",
+      "freq_min": 0.075,
+      "freq_mode": 0.15,
+      "freq_max": 0.27,
+      "loss_min": 446300.0,
+      "loss_mode": 1115750.0,
+      "loss_max": 2789375.0,
+      "control_min": 0.35,
+      "control_max": 0.6,
+      "dependency_multiplier": 1.0
+    },
+    {
+      "risk_id": "R-012",
+      "source_finding_ids": [
+        "VF-012"
+      ],
+      "asset_id": "A-12",
+      "asset_name": "print-03",
+      "asset_criticality": "low",
+      "threat": "Default management community string",
+      "control_weakness": "VLAN isolation",
+      "freq_min": 0.275,
+      "freq_mode": 0.55,
+      "freq_max": 0.99,
+      "loss_min": 200.0,
+      "loss_mode": 500.0,
+      "loss_max": 1250.0,
+      "control_min": 0.35,
+      "control_max": 0.6,
+      "dependency_multiplier": 1.0
+    }
+  ]
+}

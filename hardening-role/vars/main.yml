@@ -1,0 +1,7 @@
+---
+# hardening-role/vars/main.yml
+# The OpenSCAP profile ID from the private assignment was not present in
+# the uploaded brief text. Fill it in here once known, and reference it
+# from whatever playbook/script invokes `oscap xccdf eval`.
+hardening_openscap_profile: "[insert — e.g. xccdf_org.ssgproject.content_profile_cis]"
+hardening_openscap_datastream_path: "[insert — the exact data-stream path for the assigned distro, per the brief: do not guess a wildcard path]"

@@ -1,0 +1,43 @@
+---
+# Control 02 — Blacklist unused filesystem kernel modules (CIS-aligned:
+# cramfs, freevxfs, jffs2, hfs, hfsplus, udf, usb-storage where not needed).
+- name: "02 precheck: determine which target modules are even loadable on this kernel"
+  ansible.builtin.command: "modprobe -n -v {{ item }}"
+  register: modinfo_check
+  changed_when: false
+  failed_when: false
+  loop: "{{ hardening_unused_filesystem_modules }}"
+  vars:
+    hardening_unused_filesystem_modules:
+      - cramfs
+      - freevxfs
+      - jffs2
+      - hfs
+      - hfsplus
+      - udf
+
+- name: "02 backup: record current modprobe.d directory listing before changes"
+  ansible.builtin.command: "ls -la /etc/modprobe.d/"
+  register: modprobe_dir_before
+  changed_when: false
+
+- name: "02 backup: write pre-change listing to backup dir"
+  ansible.builtin.copy:
+    content: "{{ modprobe_dir_before.stdout }}"
+    dest: "{{ hardening_backup_root }}/{{ hardening_backup_timestamp }}/modprobe.d.before.txt"
+    mode: "0600"
+
+- name: "02 apply: install blacklist conf (idempotent — single managed file, full content each run)"
+  ansible.builtin.copy:
+    dest: /etc/modprobe.d/hardening-role-blacklist.conf
+    mode: "0644"
+    content: |
+      # Managed by hardening-role — do not edit by hand.
+      # Rollback: delete this file and run `modprobe <module>` to confirm
+      # normal loading resumes (see rollback/rollback.yml).
+      install cramfs /bin/false
+      install freevxfs /bin/false
+      install jffs2 /bin/false
+      install hfs /bin/false
+      install hfsplus /bin/false
+      install udf /bin/false

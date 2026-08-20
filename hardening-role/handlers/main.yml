@@ -1,0 +1,23 @@
+---
+- name: restart sshd
+  ansible.builtin.service:
+    name: "{{ 'sshd' if ansible_os_family == 'RedHat' else 'ssh' }}"
+    state: restarted
+  listen: "restart sshd"
+
+- name: restart auditd
+  ansible.builtin.service:
+    name: auditd
+    state: restarted
+  listen: "restart auditd"
+
+- name: reload sysctl
+  ansible.builtin.command: sysctl --system
+  changed_when: false
+  listen: "reload sysctl"
+
+- name: restart unattended-upgrades
+  ansible.builtin.service:
+    name: "{{ 'dnf-automatic.timer' if ansible_os_family == 'RedHat' else 'unattended-upgrades' }}"
+    state: restarted
+  listen: "restart unattended-upgrades"

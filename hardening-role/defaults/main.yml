@@ -1,0 +1,41 @@
+---
+# hardening-role defaults — override any of these at playbook/inventory level.
+
+hardening_backup_root: /var/backups/hardening-role
+hardening_backup_timestamp: "{{ ansible_date_time.iso8601_basic_short }}"
+
+# Each control can be individually disabled if it conflicts with a
+# documented service requirement (see rollback/CONFLICTS.md for the one
+# known conflict this role documents: sshd_ciphers vs. a legacy backup
+# client that only supports older ciphers).
+hardening_enable_ssh_hardening: true
+hardening_enable_filesystem_module_blacklist: true
+hardening_enable_password_policy: true
+hardening_enable_auditd: true
+hardening_enable_unattended_upgrades: true
+hardening_enable_file_permissions: true
+hardening_enable_disable_unused_services: true
+hardening_enable_sysctl_hardening: true
+
+# Services considered "unnecessary" if present and inactive-by-policy.
+# Documented per-service so a reviewer can see exactly what would be
+# touched without reading task internals.
+hardening_services_to_disable:
+  - avahi-daemon
+  - cups
+  - rpcbind
+
+# SSH hardening targets — conservative defaults; override if the assigned
+# host has a documented reason to differ (e.g. a legacy client requiring
+# an older cipher — see rollback/CONFLICTS.md).
+hardening_ssh_permit_root_login: "no"
+hardening_ssh_ciphers: "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com"
+hardening_ssh_macs: "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com"
+
+# sysctl hardening targets
+hardening_sysctl_settings:
+  net.ipv4.conf.all.accept_redirects: 0
+  net.ipv4.conf.all.send_redirects: 0
+  net.ipv4.conf.all.accept_source_route: 0
+  kernel.randomize_va_space: 2
+  fs.suid_dumpable: 0

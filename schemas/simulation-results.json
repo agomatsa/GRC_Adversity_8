@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "evidence_marker": "UBI-A8-68E05244B5C7",
+  "results": [
+    {
+      "risk_id": "R-001",
+      "asset_id": "A-01",
+      "inherent_mean": 678.88,
+      "inherent_p50": 629.27,
+      "inherent_p90": 1082.92,
+      "residual_mean": 424.25,
+      "residual_p50": 391.64,
+      "residual_p90": 685.0
+    },
+    {
+      "risk_id": "R-002",
+      "asset_id": "A-02",
+      "inherent_mean": 129769.51,
+      "inherent_p50": 120677.99,
+      "inherent_p90": 206563.96,
+      "residual_mean": 68135.1,
+      "residual_p50": 62800.37,
+      "residual_p90": 110272.26
+    },
+    {
+      "risk_id": "R-003",
+      "asset_id": "A-03",
+      "inherent_mean": 53543.29,
+      "inherent_p50": 49793.58,
+      "inherent_p90": 85376.3,
+      "residual_mean": 14729.47,
+      "residual_p50": 13183.71,
+      "residual_p90": 25225.35
+    },
+    {
+      "risk_id": "R-004",
+      "asset_id": "A-04",
+      "inherent_mean": 1005832.54,
+      "inherent_p50": 934358.49,
+      "inherent_p90": 1607212.86,
+      "residual_mean": 528121.17,
+      "residual_p50": 484955.92,
+      "residual_p90": 857699.34
+    },
+    {
+      "risk_id": "R-005",
+      "asset_id": "A-05",
+      "inherent_mean": 8669.12,
+      "inherent_p50": 8077.24,
+      "inherent_p90": 13743.89,
+      "residual_mean": 2385.86,
+      "residual_p50": 2141.7,
+      "residual_p90": 4058.59
+    },
+    {
+      "risk_id": "R-006",
+      "asset_id": "A-06",
+      "inherent_mean": 2080769.81,
+      "inherent_p50": 1940724.33,
+      "inherent_p90": 3301924.6,
+      "residual_mean": 1559894.52,
+      "residual_p50": 1448796.86,
+      "residual_p90": 2487256.49
+    },
+    {
+      "risk_id": "R-007",
+      "asset_id": "A-07",
+      "inherent_mean": 675.05,
+      "inherent_p50": 629.1,
+      "inherent_p90": 1075.03,
+      "residual_mean": 185.88,
+      "residual_p50": 166.82,
+      "residual_p90": 314.53
+    },
+    {
+      "risk_id": "R-008",
+      "asset_id": "A-08",
+      "inherent_mean": 106670.89,
+      "inherent_p50": 99422.36,
+      "inherent_p90": 169890.22,
+      "residual_mean": 29322.4,
+      "residual_p50": 26357.33,
+      "residual_p90": 49844.15
+    },
+    {
+      "risk_id": "R-009",
+      "asset_id": "A-09",
+      "inherent_mean": 85601.64,
+      "inherent_p50": 79492.92,
+      "inherent_p90": 135954.15,
+      "residual_mean": 23470.71,
+      "residual_p50": 21010.96,
+      "residual_p90": 39852.43
+    },
+    {
+      "risk_id": "R-010",
+      "asset_id": "A-10",
+      "inherent_mean": 18262.57,
+      "inherent_p50": 17004.66,
+      "inherent_p90": 29063.45,
+      "residual_mean": 9572.29,
+      "residual_p50": 8820.28,
+      "residual_p90": 15557.78
+    },
+    {
+      "risk_id": "R-011",
+      "asset_id": "A-11",
+      "inherent_mean": 238709.83,
+      "inherent_p50": 221951.41,
+      "inherent_p90": 379613.61,
+      "residual_mean": 125314.53,
+      "residual_p50": 114996.29,
+      "residual_p90": 203292.51
+    },
+    {
+      "risk_id": "R-012",
+      "asset_id": "A-12",
+      "inherent_mean": 394.15,
+      "inherent_p50": 367.42,
+      "inherent_p90": 627.61,
+      "residual_mean": 207.09,
+      "residual_p50": 191.01,
+      "residual_p90": 335.45
+    }
+  ]
+}
